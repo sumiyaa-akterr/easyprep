@@ -251,7 +251,7 @@ try {
 						<i class="fas fa-utensils"></i>
 					</div>
 					<div class="stat-content">
-						<h3>12</h3>
+						<h3>2</h3>
 						<p>Active Meal Plans</p>
 					</div>
 					<div class="stat-decoration">
@@ -263,7 +263,7 @@ try {
 						<i class="fas fa-shopping-basket"></i>
 					</div>
 					<div class="stat-content">
-						<h3>8</h3>
+						<h3>3</h3>
 						<p>Grocery Lists</p>
 					</div>
 					<div class="stat-decoration">
@@ -275,7 +275,7 @@ try {
 						<i class="fas fa-heart"></i>
 					</div>
 					<div class="stat-content">
-						<h3>24</h3>
+						<h3>5</h3>
 						<p>Saved Recipes</p>
 					</div>
 					<div class="stat-decoration">
@@ -287,7 +287,7 @@ try {
 						<i class="fas fa-calendar-check"></i>
 					</div>
 					<div class="stat-content">
-						<h3>156</h3>
+						<h3>0</h3>
 						<p>Meals Planned</p>
 					</div>
 					<div class="stat-decoration">
@@ -322,11 +322,28 @@ try {
 								</div>
 							<?php endwhile; ?>
 						<?php else: ?>
-							<div class="empty-state">
-								<i class="fas fa-utensils"></i>
-								<h3>No meal plans yet</h3>
-								<p>Create your first meal plan to get started!</p>
-								<a href="meal-plan.php" class="btn-primary">Create Meal Plan</a>
+							<!-- Show dummy meal plans for demonstration -->
+							<div class="meal-plan-item">
+								<div class="meal-plan-info">
+									<h4>Weekly Bengali Feast</h4>
+									<p>Week start: Dec 16, 2024 • Servings: 4 • Calories: 2400</p>
+									<span class="meal-plan-date">Saved on Dec 15, 2024</span>
+								</div>
+								<div class="meal-plan-actions">
+									<a class="btn-small" href="meal-plan.php" title="View"><i class="fas fa-eye"></i></a>
+									<a class="btn-small" href="meal-plan.php" title="Create New"><i class="fas fa-plus"></i></a>
+								</div>
+							</div>
+							<div class="meal-plan-item">
+								<div class="meal-plan-info">
+									<h4>Quick Weeknight Dinners</h4>
+									<p>Week start: Dec 9, 2024 • Servings: 2 • Calories: 1800</p>
+									<span class="meal-plan-date">Saved on Dec 8, 2024</span>
+								</div>
+								<div class="meal-plan-actions">
+									<a class="btn-small" href="meal-plan.php" title="View"><i class="fas fa-eye"></i></a>
+									<a class="btn-small" href="meal-plan.php" title="Create New"><i class="fas fa-plus"></i></a>
+								</div>
 							</div>
 						<?php endif; ?>
 					</div>

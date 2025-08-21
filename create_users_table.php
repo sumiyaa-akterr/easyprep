@@ -60,3 +60,4 @@ echo "<p><a href='meal-plan.php'>← Back to Meal Plans</a></p>";
 echo "<p><strong>Note:</strong> You can delete this file (create_users_table.php) after running it successfully.</p>";
 ?>
 
+

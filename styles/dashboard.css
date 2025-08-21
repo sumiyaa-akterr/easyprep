@@ -27,6 +27,7 @@
 
 /* Dashboard-specific header classes */
 .header-inner {
+    /* container styles are overridden later to match shared header */
     background: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     position: sticky;
@@ -762,6 +763,90 @@ h1, h2, h3, h4, h5, h6 {
     .welcome-actions {
         flex-direction: column;
     }
+}
+
+/* ===== Header parity with Recipes page ===== */
+/* Use element selectors to match shared header markup */
+header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(141, 85, 36, 0.08);
+    padding: 0.75rem 0;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(141, 85, 36, 0.06);
+    display: block; /* override homepage header flex to avoid layout clipping */
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo-section { display: flex; align-items: center; }
+
+/* Ensure the dashboard treats .logo as the image like other pages */
+header .logo-section .logo,
+header .logo-section img.logo {
+    width: 120px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Nav element styles (not .nav class) */
+nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5d4037;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav a:hover,
+nav a.active { color: #8d5524; }
+
+nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #f1c27d 0%, #e6b366 100%);
+    border-radius: 1px;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #8d5524;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header-inner { padding: 0 1rem; }
+    header .logo-section .logo,
+    header .logo-section img.logo { width: 100px; height: 70px; }
+    nav { display: none; }
+    .mobile-menu-toggle { display: block; }
 }
 
 /* Profile Page Styles */
