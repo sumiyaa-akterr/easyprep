@@ -198,13 +198,10 @@ We welcome contributions from the community! Here's how you can help:
 - Include tests for new features
 - Update documentation as needed
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
-Your Name - @yourusername
+Sumiya AKter - @sumiyaa-akterr
 
 ## 🙏 Acknowledgments
 
@@ -220,6 +217,12 @@ Your Name - @yourusername
 - **Discussions**: Join community discussions and share ideas
 - **Documentation**: Check our wiki for detailed guides
 - **Email**: Contact us at support@easyprep.com
+
+## 🎥 Live Demo
+
+Watch EasyPrep in action! See how the application works with real user interactions and features.
+
+** https://drive.google.com/file/d/1Ag-bi38-2lh3TR9OtarylbyOYEjx54I1/view?usp=drive_link
 
 ---
 
