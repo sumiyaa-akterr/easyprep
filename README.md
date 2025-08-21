@@ -222,7 +222,7 @@ Sumiya AKter - @sumiyaa-akterr
 
 Watch EasyPrep in action! See how the application works with real user interactions and features.
 
-** https://drive.google.com/file/d/1Ag-bi38-2lh3TR9OtarylbyOYEjx54I1/view?usp=drive_link
+**https://drive.google.com/file/d/1Ag-bi38-2lh3TR9OtarylbyOYEjx54I1/view?usp=drive_link
 
 ---
 
