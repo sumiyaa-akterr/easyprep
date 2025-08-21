@@ -60,7 +60,7 @@ A modern, comprehensive meal planning and recipe management web application buil
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/easyPrep.git
+   git clone https://github.com/sumiyaa-akterr/easyPrep.git
    cd easyPrep
    ```
 
@@ -84,7 +84,7 @@ A modern, comprehensive meal planning and recipe management web application buil
 ## 📁 Project Structure
 
 ```
-src/
+easyprep/
 ├── config.php              # Configuration and API keys
 ├── connect.php             # Database connection
 ├── create_tables.php       # Database schema setup
