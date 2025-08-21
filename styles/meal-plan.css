@@ -1,75 +1,525 @@
-/* Import recipes styles for consistent header */
-@import url('recipes.css');
+/* Retro Receipt Style for Meal Plan */
 
-/* Professional Typography */
-* {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+/* Base reset */
+* { box-sizing: border-box; }
+body {
+    font-family: 'Nunito', 'Inter', 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-/* Meal Plan Main */
-.meal-plan-main {
-    min-height: 100vh;
-    background: #fafaf9;
-    padding-top: 2rem;
+/* Header Styles */
+header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(141, 85, 36, 0.08);
+    padding: 0.75rem 0;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(141, 85, 36, 0.06);
 }
 
-.container {
+.header-inner {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
 
-/* Preferences Section */
-.preferences-section {
-    padding: 4rem 0;
+.logo-section { display: flex; align-items: center; }
+.logo { width: 120px; height: 80px; object-fit: contain; border-radius: 8px; }
+
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a { text-decoration: none; color: #5d4037; font-weight: 600; transition: all 0.3s ease; position: relative; }
+nav a:hover, nav a.active { color: #8d5524; }
+nav a.active::after { content: ''; position: absolute; bottom: -8px; left: 0; right: 0; height: 2px; background: linear-gradient(135deg, #f1c27d 0%, #e6b366 100%); border-radius: 1px; }
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-menu { position: relative; display: flex; align-items: center; }
+.user-menu-toggle { background: none; border: none; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; color: #8d5524; }
+.user-menu-toggle:hover { background: rgba(141, 85, 36, 0.1); transform: translateY(-2px); }
+.user-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; font-size: 36px; color: #5d4037; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.9); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+
+.user-dropdown { position: absolute; top: 100%; right: 0; background: white; border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); padding: 0.5rem 0; min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; border: 1px solid rgba(141, 85, 36, 0.1); }
+.user-dropdown.active { opacity: 1; visibility: visible; transform: translateY(0); }
+.user-dropdown a { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: #5d4037; transition: all 0.3s ease; }
+.user-dropdown a:hover { background: rgba(141, 85, 36, 0.1); color: #8d5524; }
+
+.mobile-menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: #8d5524; cursor: pointer; }
+
+@media (max-width: 768px) {
+    nav { display: none; }
+    nav.mobile-active {
+        display: block;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 10px 16px;
+    }
+    .mobile-menu-toggle { display: inline-flex; }
+}
+
+/* Main Content */
+.meal-plan-main {
+    background: #f3f4f6;
+    min-height: 100vh;
+}
+
+.meal-plan-section .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+}
+
+.plan-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    background: white;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(141, 85, 36, 0.1);
+}
+
+.plan-header h1 {
+    margin: 0;
+    font-weight: 700;
+    color: #5d4037;
+    letter-spacing: -0.01em;
+}
+
+.plan-header p {
+    margin: 4px 0 0 0;
+    color: #8d5524;
+}
+
+.plan-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #8d5524 0%, #5d4037 100%);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(141, 85, 36, 0.25);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(141,85,36,0.28); }
+
+.btn-secondary {
+    background: #ffffff;
+    color: #5d4037;
+    border-color: rgba(141, 85, 36, 0.25);
+}
+.btn-secondary:hover { background: rgba(141,85,36,0.06); }
+
+.btn-outline {
+    background: transparent;
+    color: #5d4037;
+    border-color: rgba(141, 85, 36, 0.25);
+}
+.btn-outline:hover { background: rgba(141,85,36,0.06); }
+
+/* Receipt container */
+.receipt-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 16px auto 24px;
+}
+
+/* Receipt Paper Styles */
+.receipt-paper {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer; /* Show it's clickable */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.receipt-paper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.receipt-paper:active {
+    transform: translateY(0);
+    transition: transform 0.1s ease;
+}
+
+/* Click-anywhere tip removed per design refinement */
+.receipt-paper::after { content: ''; display: none; }
+
+/* Perforated top edge effect */
+.receipt-paper:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 14px;
+    background-image: linear-gradient(to right, rgba(141,85,36,0.1) 50%, rgba(141,85,36,0) 0%);
+    background-size: 8px 2px;
+    background-repeat: repeat-x;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+/* Retro monospace headings like a receipt */
+.receipt-header h2,
+.receipt-title p,
+.day-separator,
+.meal-receipt-details,
+.summary-item,
+.footer-stats,
+.footer-message {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.receipt-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.receipt-title h2 {
+    margin: 0;
+    letter-spacing: 0.08em;
+}
+
+.receipt-title p {
+    margin: 4px 0 0 0;
+    font-size: 12px;
+    color: #8d5524;
+    letter-spacing: 0.08em;
+}
+
+.receipt-meta {
+    text-align: right;
+    font-size: 12px;
+    color: #8d5524;
+}
+
+.receipt-content {
+    position: relative;
+    min-height: 340px;
+}
+
+/* Each day page */
+.day-receipt {
+    display: none;
+    animation: slideIn 260ms ease;
+}
+
+.day-receipt.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.day-separator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0 8px;
+    border-bottom: 1px dashed rgba(141, 85, 36, 0.25);
+    color: #5d4037;
+    letter-spacing: 0.1em;
+}
+
+.day-name {
+    font-weight: 700;
+}
+
+.day-date {
+    color: #8d5524;
+}
+
+.meals-receipt {
+    padding-top: 10px;
+}
+
+.meal-receipt-item {
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(141, 85, 36, 0.15);
+}
+
+.meal-receipt-item:last-child {
+    border-bottom: 1px dashed rgba(141, 85, 36, 0.2);
+}
+
+.meal-receipt-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.meal-type-badge {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #8d5524;
+    background: rgba(141, 85, 36, 0.08);
+    border: 1px solid rgba(141, 85, 36, 0.25);
+    border-radius: 999px;
+    padding: 2px 8px;
+}
+
+.meal-cuisine {
+    font-size: 11px;
+    color: #8d5524;
+    opacity: 0.85;
+}
+
+.meal-receipt-name {
+    font-weight: 600;
+    color: #5d4037;
+}
+
+.meal-receipt-details {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: #8d5524;
+}
+
+.meal-receipt-details .detail-item i {
+    margin-right: 6px;
+    color: #8d5524;
+}
+
+.day-summary {
+    padding-top: 8px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #5d4037;
+}
+
+.summary-label {
+    letter-spacing: 0.08em;
+}
+
+.summary-value {
+    font-weight: 700;
+}
+
+/* Receipt Footer */
+.receipt-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #f1c27d;
+}
+
+.footer-separator {
+    text-align: center;
+    color: rgba(141, 85, 36, 0.2);
+    letter-spacing: 0.4em;
+}
+
+.footer-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+    padding: 8px 0;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.stat-label {
+    color: #8d5524;
+    letter-spacing: 0.08em;
+}
+
+.stat-value {
+    font-weight: 700;
+    color: #5d4037;
+}
+
+.footer-message {
+    text-align: center;
+    font-size: 12px;
+    color: #8d5524;
+}
+
+/* Remove the unnecessary receipt-actions CSS */
+
+/* Navigation dots and arrows */
+.receipt-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(141, 85, 36, 0.18);
+    border: none;
+    cursor: pointer;
+}
+
+.nav-dot.active {
+    background: #8d5524;
+}
+
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(141,85,36,0.2);
+    background: #ffffff;
+    color: #8d5524;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    cursor: pointer;
+}
+
+.nav-arrow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nav-prev { left: calc(50% - 260px); }
+.nav-next { right: calc(50% - 260px); }
+
+@media (max-width: 640px) {
+    .nav-prev { left: 8px; }
+    .nav-next { right: 8px; }
+}
+
+/* Print styles for clean receipt printing */
+@media print {
+    header, nav, .mobile-menu-toggle, .preferences-section, .plan-footer, .receipt-nav, .nav-arrow, .grocery-actions { display: none !important; }
+    body { background: white !important; }
+    .meal-plan-main { padding: 0 !important; background: white !important; }
+    .receipt-container { margin: 0 !important; }
+    .receipt-paper { box-shadow: none !important; border: 1px solid #eee; max-width: 100%; }
+    .receipt-paper::after { display: none !important; }
+}
+
+/* Preferences form cleanup for consistency */
+.preferences-section .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 32px;
 }
 
 .section-header h1 {
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 800;
     color: #5d4037;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.section-header h1 i {
-    color: #8d5524;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
 }
 
 .section-header p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #8d5524;
-    max-width: 600px;
-    margin: 0 auto;
 }
 
-/* Preferences Form */
+.error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+}
+
+.error-message i {
+    color: #dc2626;
+    font-size: 1.1rem;
+}
+
 .preferences-form {
     background: white;
-    border-radius: 20px;
-    padding: 3rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
     border: 1px solid rgba(141, 85, 36, 0.1);
 }
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
+    gap: 8px;
 }
 
 .form-group.full-width {
@@ -79,24 +529,15 @@
 .form-group label {
     font-weight: 600;
     color: #5d4037;
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.form-group label i {
-    color: #8d5524;
 }
 
 .form-group select {
-    padding: 1rem;
-    border: 2px solid #e0ac69;
-    border-radius: 12px;
-    font-size: 1rem;
+    padding: 12px;
+    border: 1px solid rgba(141, 85, 36, 0.2);
+    border-radius: 8px;
+    font-size: 16px;
     background: white;
-    color: #5d4037;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
 .form-group select:focus {
@@ -105,43 +546,33 @@
     box-shadow: 0 0 0 3px rgba(141, 85, 36, 0.1);
 }
 
-/* Checkbox Grid */
 .checkbox-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
 }
 
 .checkbox-item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 1rem;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 10px;
     background: #f8fafc;
-    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    transition: background 160ms ease, border-color 160ms ease;
+    position: relative;
 }
 
-.checkbox-item:hover {
-    background: #fff6e0;
-    border-color: #f1c27d;
-}
-
-.checkbox-item input[type="checkbox"] {
-    display: none;
-}
-
-.checkmark {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #8d5524;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+.checkbox-item .checkmark {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid rgba(141, 85, 36, 0.3);
+    background: #fff;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
 .checkbox-item input[type="checkbox"]:checked + .checkmark {
@@ -150,298 +581,227 @@
 }
 
 .checkbox-item input[type="checkbox"]:checked + .checkmark::after {
-    content: "✓";
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: white;
+    font-size: 12px;
     font-weight: bold;
-    font-size: 0.9rem;
 }
 
-.checkbox-item .text {
-    font-weight: 500;
+/* Visual feedback for the entire checkbox item when checked */
+.checkbox-item input[type="checkbox"]:checked ~ .text {
+    color: #8d5524;
+    font-weight: 600;
+}
+
+/* Remove the :has() selector and let JavaScript handle the styling */
+.checkbox-item input[type="checkbox"] { 
+    opacity: 0;
+    position: absolute;
+    pointer-events: auto;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+/* Add styles for JavaScript-controlled states */
+.checkbox-item.checked {
+    background: #fff6e0;
+    border-color: #8d5524;
+    box-shadow: 0 2px 8px rgba(141, 85, 36, 0.15);
+}
+
+.checkbox-item.checked .text {
+    color: #8d5524;
+    font-weight: 600;
+}
+
+/* Grocery Receipt Styles */
+.grocery-receipt .receipt-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.grocery-receipt .receipt-content table th {
+    background: #f8f4f0;
     color: #5d4037;
+    font-weight: 600;
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 2px solid #f1c27d;
 }
 
-/* Form Actions */
+.grocery-receipt .receipt-content table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.grocery-receipt .receipt-content table tbody tr:hover {
+    background: #fff6e0;
+}
+
+.grocery-receipt .receipt-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #f1c27d;
+}
+
+.grocery-receipt .footer-separator {
+    text-align: center;
+    color: #8d5524;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+.grocery-receipt .footer-stats {
+    margin: 20px 0;
+}
+
+.grocery-receipt .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.grocery-receipt .stat-label {
+    color: #5d4037;
+    font-weight: 600;
+}
+
+.grocery-receipt .stat-value {
+    color: #8d5524;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.grocery-receipt .footer-message {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f4f0;
+    border-radius: 8px;
+}
+
+.grocery-receipt .footer-message p {
+    margin: 5px 0;
+    color: #8d5524;
+    font-weight: 500;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    .grocery-receipt .receipt-content table {
+        font-size: 12px;
+    }
+    
+    .grocery-receipt .receipt-content table th,
+    .grocery-receipt .receipt-content table td {
+        padding: 8px 4px;
+    }
+    
+    .grocery-receipt .stat-item {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+}
+
+/* Grocery Actions */
+.grocery-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.grocery-actions .btn-primary,
+.grocery-actions .btn-secondary {
+    min-width: 140px;
+    padding: 12px 20px;
+    font-size: 14px;
+}
+
+/* Confirmation Receipt */
+.confirmation-receipt .receipt-content {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.confirmation-receipt .confirmation-message h3 {
+    color: #6B8F71; /* sage green */
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.confirmation-receipt .confirmation-message p {
+    margin: 10px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.confirmation-receipt .confirmation-message p strong {
+    color: #8d5524;
+}
+
+.confirmation-receipt .receipt-header h2 {
+    color: #6B8F71; /* sage green */
+}
+
+/* Button Styles for Grocery Actions */
+.grocery-actions .btn-primary {
+    background: linear-gradient(135deg, #A3B18A 0%, #6B8F71 100%); /* sage green gradient */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.grocery-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 143, 113, 0.4); /* sage green shadow */
+}
+
+.grocery-actions .btn-secondary {
+    background: white;
+    color: #8d5524;
+    border: 2px solid rgba(141, 85, 36, 0.2);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.grocery-actions .btn-secondary:hover {
+    background: rgba(141, 85, 36, 0.1);
+    border-color: #8d5524;
+}
+
 .form-actions {
     text-align: center;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #8d5524 0%, #c68642 100%);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(135deg, #c68642 0%, #8d5524 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(141, 85, 36, 0.3);
-}
-
-.btn-secondary {
-    background: white;
-    color: #8d5524;
-    border: 2px solid #8d5524;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.btn-secondary:hover {
-    background: #8d5524;
-    color: white;
-    transform: translateY(-2px);
-}
-
-.btn-outline {
-    background: transparent;
-    color: #8d5524;
-    border: 2px solid #8d5524;
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.btn-outline:hover {
-    background: #8d5524;
-    color: white;
-}
-
-/* Meal Plan Section */
-.meal-plan-section {
-    padding: 4rem 0;
-}
-
-.plan-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.plan-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #5d4037;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.plan-header h1 i {
-    color: #8d5524;
-}
-
-.plan-header p {
-    font-size: 1.2rem;
-    color: #8d5524;
-    margin-bottom: 2rem;
-}
-
-.plan-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-/* Meal Plan Grid */
-.meal-plan-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
-
-.day-card {
-    background: white;
-    border-radius: 20px;
-    padding: 1.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(141, 85, 36, 0.1);
-    transition: all 0.3s ease;
-}
-
-.day-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-.day-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #f1c27d;
-}
-
-.day-header h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #5d4037;
-}
-
-.day-stats {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #8d5524;
-}
-
-.day-stats span {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.day-stats i {
-    color: #c68642;
-}
-
-/* Meals List */
-.meals-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.meal-item {
-    background: #fff6e0;
-    border-radius: 12px;
-    padding: 1rem;
-    border-left: 4px solid #8d5524;
-    transition: all 0.3s ease;
-}
-
-.meal-item:hover {
-    background: #f1c27d;
-    transform: translateX(5px);
-}
-
-.meal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.meal-type {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #8d5524;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.cuisine-badge {
-    background: rgba(141, 85, 36, 0.2);
-    color: #5d4037;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.meal-item h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #5d4037;
-    margin-bottom: 0.5rem;
-}
-
-.meal-meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.85rem;
-    color: #8d5524;
-}
-
-.meal-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.meal-meta i {
-    color: #c68642;
-}
-
-/* Plan Footer */
 .plan-footer {
     text-align: center;
+    margin-top: 32px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .checkbox-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .plan-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .meal-plan-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .day-stats {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .meal-meta {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-}
 
-/* Print Styles for Download */
-@media print {
-    .plan-header .plan-actions,
-    .plan-footer {
-        display: none;
-    }
-    
-    .day-card {
-        break-inside: avoid;
-        box-shadow: none;
-        border: 1px solid #ddd;
-    }
-    
-    .meal-plan-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-}

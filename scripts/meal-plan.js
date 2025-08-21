@@ -1,17 +1,38 @@
 // Meal Plan JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    initializeMealPlan();
+    console.log('📄 DOM loaded, calling initializeMealPlan...');
+    try {
+        initializeMealPlan();
+        console.log('✅ initializeMealPlan completed successfully');
+    } catch (error) {
+        console.error('❌ Error in initializeMealPlan:', error);
+    }
 });
 
 function initializeMealPlan() {
-    // Initialize user menu dropdown
-    initializeUserMenu();
+    console.log('🚀 Starting initializeMealPlan...');
     
-    // Initialize mobile menu
-    initializeMobileMenu();
-    
-    // Initialize form interactions
-    initializeFormInteractions();
+    try {
+        // Initialize user menu dropdown
+        console.log('📋 Initializing user menu...');
+        initializeUserMenu();
+        
+        // Initialize mobile menu
+        console.log('📱 Initializing mobile menu...');
+        initializeMobileMenu();
+        
+        // Initialize form interactions
+        console.log('📝 Initializing form interactions...');
+        initializeFormInteractions();
+        
+        // Initialize receipt navigation
+        console.log('🧭 Initializing receipt navigation...');
+        initializeReceiptNavigation();
+        
+        console.log('✅ All initializations completed');
+    } catch (error) {
+        console.error('❌ Error during initialization:', error);
+    }
 }
 
 function initializeUserMenu() {
@@ -46,284 +67,270 @@ function initializeMobileMenu() {
 }
 
 function initializeFormInteractions() {
+    console.log('🔍 Starting form interactions setup...');
+    
     // Add smooth animations to checkboxes
     const checkboxItems = document.querySelectorAll('.checkbox-item');
+    console.log('📋 Found checkbox items:', checkboxItems.length);
     
-    checkboxItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            const checkbox = this.querySelector('input[type="checkbox"]');
-            if (e.target !== checkbox) {
-                checkbox.checked = !checkbox.checked;
-            }
-            
-            // Add visual feedback
-            if (checkbox.checked) {
-                this.style.background = '#fff6e0';
-                this.style.borderColor = '#8d5524';
-            } else {
-                this.style.background = '#f8fafc';
-                this.style.borderColor = 'transparent';
-            }
-        });
-    });
-
-    // Form validation
-    const form = document.querySelector('.preferences-form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            const servings = document.querySelector('#servings').value;
-            if (!servings) {
-                e.preventDefault();
-                alert('Please select the number of servings.');
-                return;
-            }
-            
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            if (submitBtn) {
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-                submitBtn.disabled = true;
-            }
-        });
-    }
-}
-
-// Download meal plan functionality
-function downloadMealPlan() {
-    // Create a printable version
-    const printWindow = window.open('', '_blank');
-    const mealPlanContent = document.getElementById('meal-plan-content').innerHTML;
-    
-    const printContent = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>EasyPrep - Weekly Meal Plan</title>
-            <style>
-                body {
-                    font-family: 'Inter', sans-serif;
-                    margin: 20px;
-                    background: white;
-                    color: #333;
-                }
-                
-                .header {
-                    text-align: center;
-                    margin-bottom: 30px;
-                    border-bottom: 2px solid #8d5524;
-                    padding-bottom: 20px;
-                }
-                
-                .header h1 {
-                    color: #5d4037;
-                    margin: 0;
-                    font-size: 2rem;
-                }
-                
-                .header p {
-                    color: #8d5524;
-                    margin: 10px 0 0 0;
-                }
-                
-                .meal-plan-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 20px;
-                }
-                
-                .day-card {
-                    border: 1px solid #ddd;
-                    border-radius: 10px;
-                    padding: 15px;
-                    break-inside: avoid;
-                }
-                
-                .day-header {
-                    border-bottom: 2px solid #f1c27d;
-                    padding-bottom: 10px;
-                    margin-bottom: 15px;
-                }
-                
-                .day-header h3 {
-                    color: #5d4037;
-                    margin: 0;
-                }
-                
-                .day-stats {
-                    font-size: 0.9rem;
-                    color: #8d5524;
-                    margin-top: 5px;
-                }
-                
-                .meal-item {
-                    background: #fff6e0;
-                    border-radius: 8px;
-                    padding: 10px;
-                    margin-bottom: 10px;
-                    border-left: 4px solid #8d5524;
-                }
-                
-                .meal-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 5px;
-                }
-                
-                .meal-type {
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                    color: #8d5524;
-                    text-transform: uppercase;
-                }
-                
-                .cuisine-badge {
-                    background: rgba(141, 85, 36, 0.2);
-                    color: #5d4037;
-                    padding: 2px 8px;
-                    border-radius: 10px;
-                    font-size: 0.7rem;
-                    font-weight: 600;
-                }
-                
-                .meal-item h4 {
-                    color: #5d4037;
-                    margin: 0 0 5px 0;
-                    font-size: 1rem;
-                }
-                
-                .meal-meta {
-                    font-size: 0.8rem;
-                    color: #8d5524;
-                }
-                
-                .footer {
-                    text-align: center;
-                    margin-top: 30px;
-                    padding-top: 20px;
-                    border-top: 1px solid #ddd;
-                    color: #8d5524;
-                }
-                
-                @media print {
-                    body { margin: 0; }
-                    .meal-plan-grid { grid-template-columns: repeat(2, 1fr); }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>🍽️ EasyPrep Weekly Meal Plan</h1>
-                <p>Generated on ${new Date().toLocaleDateString()}</p>
-            </div>
-            
-            <div class="meal-plan-grid">
-                ${mealPlanContent}
-            </div>
-            
-            <div class="footer">
-                <p>Created with ❤️ by EasyPrep | Visit us at easyprep.com</p>
-            </div>
-        </body>
-        </html>
-    `;
-    
-    printWindow.document.write(printContent);
-    printWindow.document.close();
-    
-    // Trigger print dialog
-    printWindow.focus();
-    setTimeout(() => {
-        printWindow.print();
-        printWindow.close();
-    }, 500);
-}
-
-// Generate grocery list functionality
-function generateGroceryList() {
-    // Show loading state
-    const btn = event.target;
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating...';
-    btn.disabled = true;
-    
-    // Simulate API call to calculate groceries
-    setTimeout(() => {
-        // Calculate all ingredients needed for the week
-        const groceryItems = calculateGroceriesFromMealPlan();
+    if (checkboxItems.length === 0) {
+        console.log('❌ No checkbox items found! This is the problem.');
+        console.log('🔍 Looking for elements with class "checkbox-item"...');
+        const allElements = document.querySelectorAll('*');
+        console.log('📊 Total elements on page:', allElements.length);
         
-        // Create grocery list in database and redirect
-        if (confirm(`Found ${groceryItems.length} items needed for your meal plan! 🛒\\n\\nTotal estimated cost: $${calculateTotalCost(groceryItems)}\\n\\nProceed to place order?`)) {
-            // Redirect to grocery page with auto-filled cart
-            window.location.href = 'grocery.php?auto_fill=true&meal_plan=true';
+        // Check if the form even exists
+        const form = document.querySelector('.preferences-form');
+        console.log('📝 Form found:', form);
+        
+        if (form) {
+            console.log('📋 Form HTML:', form.innerHTML.substring(0, 200) + '...');
         }
+        return;
+    }
+    
+    checkboxItems.forEach((item, index) => {
+        console.log(`📦 Setting up checkbox item ${index}:`, item);
         
-        // Restore button
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-    }, 2000);
-}
-
-function calculateGroceriesFromMealPlan() {
-    // This would parse all meals and extract ingredients
-    // For now, return sample grocery list
-    return [
-        { name: 'Rice', quantity: '2kg', category: 'Grains', price: 150 },
-        { name: 'Chicken', quantity: '1kg', category: 'Meat', price: 300 },
-        { name: 'Vegetables Mix', quantity: '2kg', category: 'Vegetables', price: 200 },
-        { name: 'Spices Pack', quantity: '1 set', category: 'Spices', price: 180 },
-        { name: 'Oil', quantity: '1L', category: 'Cooking', price: 120 },
-        { name: 'Onions', quantity: '1kg', category: 'Vegetables', price: 80 },
-        { name: 'Garlic', quantity: '250g', category: 'Vegetables', price: 60 },
-        { name: 'Eggs', quantity: '12 pieces', category: 'Dairy', price: 90 }
-    ];
-}
-
-function calculateTotalCost(items) {
-    const total = items.reduce((sum, item) => sum + item.price, 0);
-    return total.toFixed(0);
-}
-
-// Smooth scrolling for internal links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+        // Get the checkbox within this item
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        console.log(`🔘 Checkbox ${index}:`, checkbox);
+        
+        if (checkbox) {
+            console.log(`✅ Setting up event listeners for checkbox ${index}:`, checkbox.name);
+            // Add change event listener to the checkbox
+            checkbox.addEventListener('change', function() {
+                console.log(`🎯 Change event fired for checkbox ${index}:`, this.name, '=', this.checked);
+                
+                try {
+                    // Update visual feedback
+                    if (this.checked) {
+                        item.style.background = '#fff6e0';
+                        item.style.borderColor = '#8d5524';
+                        item.style.fontWeight = '600';
+                        console.log(`🎨 Applied checked styles to item ${index}`);
+                    } else {
+                        item.style.background = '#f8fafc';
+                        item.style.borderColor = 'transparent';
+                        item.style.fontWeight = '400';
+                        console.log(`🎨 Applied unchecked styles to item ${index}`);
+                    }
+                    
+                    // Call update function
+                    updatePreferenceSummary();
+                } catch (error) {
+                    console.error(`❌ Error updating visual feedback for checkbox ${index}:`, error);
+                }
+            });
+            
+            // Set initial visual state
+            if (checkbox.checked) {
+                item.style.background = '#fff6e0';
+                item.style.borderColor = '#8d5524';
+            }
+            
+            // Also add click event to the label for better UX
+            item.addEventListener('click', function(e) {
+                try {
+                    console.log(`🖱️ Label clicked for checkbox ${index}`);
+                    
+                    // Don't trigger twice if clicking directly on checkbox
+                    if (e.target === checkbox) return;
+                    
+                    // Toggle the checkbox
+                    checkbox.checked = !checkbox.checked;
+                    console.log(`🔄 Toggled checkbox ${index} to:`, checkbox.checked);
+                    
+                    // Trigger the change event
+                    checkbox.dispatchEvent(new Event('change'));
+                } catch (error) {
+                    console.error(`❌ Error handling click for checkbox ${index}:`, error);
+                }
             });
         }
     });
-});
-
-// Add loading animation to buttons
-document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
-    btn.addEventListener('click', function() {
-        if (!this.disabled) {
-            this.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-        }
-    });
-});
-
-// Form enhancement - show preference summary
-function updatePreferenceSummary() {
-    const servings = document.querySelector('#servings')?.value;
-    const restrictions = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
-        .map(cb => cb.nextElementSibling.nextElementSibling.textContent);
     
-    // Create or update summary (could be displayed somewhere)
-    console.log('Preferences:', { servings, restrictions });
+    // Set up form submission
+    const form = document.querySelector('.preferences-form');
+    console.log('🔍 Form found:', form);
+    
+    if (form) {
+        console.log('✅ Form found, setting up submit handler...');
+        
+        form.addEventListener('submit', function(e) {
+            console.log('🎯 FORM SUBMITTING!');
+            
+            // Validate form
+            if (!validateForm()) {
+                console.log('❌ Form validation failed');
+                e.preventDefault();
+                return;
+            }
+            
+            console.log('✅ Form validation passed - allowing submission');
+            // Allow form submission
+            this.submit();
+        });
+        
+        console.log('✅ Form submit handler set up successfully');
+    } else {
+        console.log('❌ Form not found!');
+    }
 }
 
-// Listen for form changes
-document.addEventListener('change', function(e) {
-    if (e.target.matches('#servings, input[type="checkbox"]')) {
-        updatePreferenceSummary();
+function initializeReceiptNavigation() {
+    let currentDay = 0;
+    const totalDays = document.querySelectorAll('.day-receipt').length;
+    
+    // Set up navigation dots
+    const navDots = document.querySelectorAll('.nav-dot');
+    navDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showDay(index);
+        });
+    });
+    
+    // Set up navigation arrows
+    const prevBtn = document.querySelector('.nav-prev');
+    const nextBtn = document.querySelector('.nav-next');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentDay > 0) {
+                showDay(currentDay - 1);
+            }
+        });
     }
-});
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentDay < totalDays - 1) {
+                showDay(currentDay + 1);
+            }
+        });
+    }
+    
+    // Click anywhere on the receipt to go to next day
+    const receiptPaper = document.getElementById('receipt-paper');
+    if (receiptPaper) {
+        receiptPaper.addEventListener('click', (e) => {
+            // Ignore clicks on nav controls themselves
+            const target = e.target;
+            if ((target.closest && target.closest('.nav-arrow')) || (target.classList && target.classList.contains('nav-dot'))) {
+                return;
+            }
+            const nextIndex = currentDay < totalDays - 1 ? currentDay + 1 : 0;
+            showDay(nextIndex);
+        });
+    }
+    
+    function showDay(dayIndex) {
+        // Hide all days
+        document.querySelectorAll('.day-receipt').forEach(day => {
+            day.classList.remove('active');
+        });
+        
+        // Show selected day
+        const selectedDay = document.querySelector(`[data-day="${dayIndex}"]`);
+        if (selectedDay) {
+            selectedDay.classList.add('active');
+        }
+        
+        // Update navigation dots
+        navDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === dayIndex);
+        });
+        
+        // Update arrow states
+        if (prevBtn) prevBtn.disabled = dayIndex === 0;
+        if (nextBtn) nextBtn.disabled = dayIndex === totalDays - 1;
+        
+        currentDay = dayIndex;
+    }
+}
 
+function validateForm() {
+    console.log('🔍 Validating form...');
+    
+    const servings = document.getElementById('servings').value;
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    
+    console.log('🍽️ Servings:', servings);
+    console.log('☑️ Checked checkboxes:', checkboxes.length);
+    console.log('📋 Checked names:', Array.from(checkboxes).map(cb => cb.name));
+    
+    if (!servings || servings < 1) {
+        console.log('❌ Servings validation failed');
+        alert('Please select the number of servings.');
+        return false;
+    }
+    
+    if (checkboxes.length === 0) {
+        console.log('❌ Checkboxes validation failed');
+        alert('Please select at least one dietary preference or restriction.');
+        return false;
+    }
+    
+    console.log('✅ Form validation passed');
+    return true;
+}
+
+function updatePreferenceSummary() {
+    const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const restrictions = Array.from(checkedBoxes).map(cb => {
+        const textSpan = cb.closest('.checkbox-item').querySelector('.text');
+        return textSpan ? textSpan.textContent : cb.name;
+    });
+    
+    // You can add a summary display here if needed
+}
+
+function downloadMealPlan() {
+    // Implementation for downloading meal plan
+    alert('Download functionality coming soon!');
+}
+
+function generateGroceryList() {
+    // Implementation for generating grocery list
+    alert('Grocery list functionality coming soon!');
+}
+
+function testCheckboxes() {
+    console.log('🧪 Testing checkboxes...');
+    
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    console.log('📋 Total checkboxes found:', checkboxes.length);
+    
+    const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    console.log('☑️ Checked checkboxes:', checkedBoxes.length);
+    
+    checkedBoxes.forEach((cb, i) => {
+        console.log(`✅ Checked ${i}:`, cb.name, '=', cb.checked);
+    });
+    
+    // Test visual feedback
+    const checkboxItems = document.querySelectorAll('.checkbox-item');
+    checkboxItems.forEach((item, index) => {
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        if (checkbox && checkbox.checked) {
+            console.log(`🎨 Item ${index} should have checked styles`);
+            console.log(`   Background:`, item.style.background);
+            console.log(`   Border:`, item.style.borderColor);
+        }
+    });
+}
+
+// Global functions for onclick handlers
+function previousDay() {
+    const prevBtn = document.querySelector('.nav-prev');
+    if (prevBtn && !prevBtn.disabled) {
+        prevBtn.click();
+    }
+}
+
+function nextDay() {
+    const nextBtn = document.querySelector('.nav-next');
+    if (nextBtn && !nextBtn.disabled) {
+        nextBtn.click();
+    }
+}

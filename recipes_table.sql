@@ -99,3 +99,7 @@ INSERT INTO recipes (name, description, cuisine_type, cooking_time, servings, di
 -- Dessert
 ('Mishti Doi', 'Traditional Bengali sweet yogurt dessert made with jaggery and cardamom - the perfect ending to any meal', 'Bangla', 15, 4, 'Easy', 140, 'Full-fat milk (1 liter), Yogurt starter (2 tbsp), Jaggery (1/2 cup), Cardamom powder (1/2 tsp), Nuts for garnish (optional)', '1. Boil milk and reduce to 3/4 quantity\n2. Melt jaggery in little milk\n3. Mix jaggery with reduced milk\n4. Cool to lukewarm temperature\n5. Add yogurt starter and cardamom\n6. Mix well and pour in earthen pots\n7. Keep in warm place for 6-8 hours\n8. Refrigerate and serve chilled', 'https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', 'dessert,sweet yogurt,traditional,festive', TRUE, FALSE, TRUE);
 
+
+
+
+

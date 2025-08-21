@@ -32,3 +32,7 @@ CREATE TABLE IF NOT EXISTS grocery_lists (
     FOREIGN KEY (meal_plan_id) REFERENCES meal_plans(id) ON DELETE SET NULL
 );
 
+
+
+
+

@@ -116,7 +116,7 @@ if (is_string($recipe['instructions'])) {
                     </button>
                     <div class="user-dropdown">
                         <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                        <a href="#"><i class="fas fa-user"></i> Profile</a>
+                        <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
                         <a href="#"><i class="fas fa-cog"></i> Settings</a>
                         <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>

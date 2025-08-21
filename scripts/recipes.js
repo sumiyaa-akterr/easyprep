@@ -36,6 +36,15 @@ function initializeRecipesPage() {
 function handleSaveRecipe(event) {
     const button = event.currentTarget;
     const recipeId = button.dataset.recipeId;
+    const isExternal = button.dataset.external === '1';
+    const provider = button.dataset.provider || '';
+    const externalId = button.dataset.externalId || '';
+    const name = button.dataset.name || '';
+    const description = button.dataset.description || '';
+    const cuisine = button.dataset.cuisine || '';
+    const cookingTime = button.dataset.cookingTime || '';
+    const servings = button.dataset.servings || '';
+    const imageUrl = button.dataset.imageUrl || '';
     
     // Toggle save state
     const isSaved = button.classList.contains('saved');
@@ -45,48 +54,51 @@ function handleSaveRecipe(event) {
         button.classList.remove('saved');
         button.innerHTML = '<i class="fas fa-heart"></i> Save';
         showNotification('Recipe removed from saved', 'info');
+        // Persist unsave
+        saveRecipeToDatabase({ action: 'unsave', recipe_id: recipeId });
     } else {
         // Add to saved
         button.classList.add('saved');
         button.innerHTML = '<i class="fas fa-heart"></i> Saved';
         showNotification('Recipe saved successfully!', 'success');
+        // Persist save (local or external)
+        if (isExternal) {
+            saveRecipeToDatabase({
+                action: 'save',
+                provider,
+                external_id: externalId,
+                name,
+                description,
+                cuisine_type: cuisine,
+                cooking_time: cookingTime ? parseInt(cookingTime, 10) : null,
+                servings: servings ? parseInt(servings, 10) : null,
+                image_url: imageUrl
+            });
+        } else {
+            saveRecipeToDatabase({ action: 'save', recipe_id: recipeId });
+        }
     }
-
-    // Here you would typically make an AJAX call to save/unsave the recipe
-    // For now, we'll just simulate it
-    saveRecipeToDatabase(recipeId, !isSaved);
 }
 
-function saveRecipeToDatabase(recipeId, save) {
-    // This would be an AJAX call to your backend
-    // For now, we'll just log it
-    console.log(`${save ? 'Saving' : 'Removing'} recipe ${recipeId}`);
-    
-    // Example AJAX call (uncomment when backend is ready):
-    /*
+function saveRecipeToDatabase(payload) {
     fetch('save-recipe.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            recipe_id: recipeId,
-            action: save ? 'save' : 'unsave'
-        })
+        body: JSON.stringify(payload)
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            showNotification(data.message, 'success');
-        } else {
-            showNotification(data.message, 'error');
+        if (!data || !data.success) {
+            const msg = (data && data.message) ? data.message : 'Failed to update favorites';
+            showNotification(msg, 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
         showNotification('An error occurred', 'error');
     });
-    */
 }
 
 function handleFilterChange(event) {
@@ -300,5 +312,9 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+
+
+
 
 
